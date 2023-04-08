@@ -41,4 +41,9 @@ public class UserServiceImpl implements UserService {
         }
         return userMapper.login(openid);
     }
+
+    @Override
+    public int saveInfo(User user) {
+        return userMapper.saveInfo(user);
+    }
 }
