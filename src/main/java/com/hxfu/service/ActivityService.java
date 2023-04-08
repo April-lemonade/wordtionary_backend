@@ -14,9 +14,10 @@ import java.util.List;
  * @since 2021-09-25
  */
 public interface ActivityService {
-    List<Activity> getAll();
+    /*List<Activity> getAll();
     int addActivity(Activity activity);
     int editActivity(Activity activity);
     int deleteActivity(int id);
-    List<Integer> getCounts();
+    List<Integer> getCounts();*/
+    String findProduct(String code);
 }

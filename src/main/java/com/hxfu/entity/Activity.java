@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @AllArgsConstructor
 public class Activity {
 
-    private int id;
+    /*private int id;
     private String content;
     private String color;
     @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss",timezone = "Asia/Shanghai")
@@ -42,5 +43,14 @@ public class Activity {
         this.id = id;
         this.content = content;
         this.color = color;
-    }
+    }*/
+    private int id;
+    private String name;
+    private String factory;
+    private String product;
+    private String dealer;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "Asia/Shanghai")
+    private Date searchTime;
+    private int searchCount;
+    private String code;
 }

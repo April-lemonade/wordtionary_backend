@@ -23,7 +23,7 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityMapper activityMapper;
 
 
-    @Override
+/*    @Override
     public List<Activity> getAll() {
         return activityMapper.getAll();
     }
@@ -51,6 +51,10 @@ public class ActivityServiceImpl implements ActivityService {
             data.add(activityMapper.getCounts(color));
         }
         return data;
-    }
+    }*/
 
+    @Override
+    public String findProduct(String code) {
+        return activityMapper.findProduct(code);
+    }
 }

@@ -6,10 +6,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.hxfu.mapper")
-public class FruitApplication {
+public class WordtionaryApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(FruitApplication.class, args);
+        SpringApplication.run(WordtionaryApplication.class, args);
     }
 
 }

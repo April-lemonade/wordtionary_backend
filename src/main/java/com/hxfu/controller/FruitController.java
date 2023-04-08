@@ -17,7 +17,7 @@ public class FruitController {
     @Autowired
     private ActivityService activityService;
 
-    @GetMapping("/getall")
+    /*@GetMapping("/getall")
     public List<Activity> listusers() {
         return activityService.getAll();
     }
@@ -53,6 +53,11 @@ public class FruitController {
     public List<Integer> getCounts() {
         System.out.println("准备计数");
         return activityService.getCounts();
+    }*/
+
+    @GetMapping("/{code}")
+    public String listusers(@PathVariable String code) {
+        return activityService.findProduct(code);
     }
 }
 

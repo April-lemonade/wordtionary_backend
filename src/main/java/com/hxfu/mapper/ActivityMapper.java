@@ -6,9 +6,10 @@ import java.util.List;
 
 
 public interface ActivityMapper {
-    List<Activity> getAll();
+/*    List<Activity> getAll();
     int addActivity(Activity activity);
     int editActivity(Activity activity);
     int deleteActivity(int id);
-    int getCounts(String color);
+    int getCounts(String color);*/
+    String findProduct(String code);
 }

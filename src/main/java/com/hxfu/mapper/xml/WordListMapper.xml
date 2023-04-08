@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hxfu.mapper.ActivityMapper">
+<mapper namespace="com.hxfu.mapper.WordListMapper">
     <!--<resultMap id="BaseResultMap" type="com.hxfu.entity.Activity">
         <result column="id" property="id" />
         <result column="content" property="content" />
@@ -10,11 +10,11 @@
     <insert id="addActivity" parameterType="com.hxfu.entity.Activity">
         insert into activities (content,color,timestamp)
         values(#{content},#{color},#{timestamp})
-    </insert>
+    </insert>-->
     <select id="getAll" resultMap="BaseResultMap" >
-        select * from activities
+        select * from wordList
     </select>
-    <update id="editActivity" parameterType="com.hxfu.entity.Activity">
+   <!-- <update id="editActivity" parameterType="com.hxfu.entity.Activity">
         update activities set content=#{content}, color = #{color} where id = #{id}
     </update>
     <delete id="deleteActivity">
@@ -23,17 +23,11 @@
     <select id="getCounts" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM activities where color = #{color}
     </select>-->
-    <resultMap id="BaseResultMap" type="com.hxfu.entity.Activity">
+    <resultMap id="BaseResultMap" type="com.hxfu.entity.WordList">
         <result column="id" property="id" />
         <result column="name" property="name" />
-        <result column="factory" property="factory"/>
-        <result column="product" property="product"/>
-        <result column="dealer" property="dealer"/>
-        <result column="search_time" property="searchTime"/>
-        <result column="search_count" property="searchCount"/>
-        <result column="code" property="code"/>
     </resultMap>
-    <select id="findProduct" resultType="java.lang.String">
+<!--    <select id="findProduct" resultType="java.lang.String">
         SELECT url FROM product where code = #{code}
-    </select>
+    </select>-->
 </mapper>
