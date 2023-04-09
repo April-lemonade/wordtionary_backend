@@ -16,4 +16,9 @@ public class WordListServiceImpl implements WordListService {
     public List<WordList> getAll() {
         return wordListMapper.getAll();
     }
+
+    @Override
+    public int change(String bookId, String openid) {
+        return wordListMapper.change(bookId, openid);
+    }
 }

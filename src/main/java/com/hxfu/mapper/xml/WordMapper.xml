@@ -12,7 +12,7 @@
         values(#{content},#{color},#{timestamp})
     </insert>-->
     <select id="getWords" resultMap="BaseResultMap" >
-        select * from word limit #{count}
+        select * from word where listId = #{bookId} limit #{wordId},10
     </select>
     <!-- <update id="editActivity" parameterType="com.hxfu.entity.Activity">
          update activities set content=#{content}, color = #{color} where id = #{id}

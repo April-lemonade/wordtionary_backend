@@ -5,5 +5,5 @@ import com.hxfu.entity.Word;
 import java.util.List;
 
 public interface WordMapper {
-    List<Word> getWords(int count);
+    List<Word> getWords(int bookId, int wordId);
 }

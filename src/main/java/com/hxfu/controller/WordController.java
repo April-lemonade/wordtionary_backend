@@ -3,9 +3,7 @@ package com.hxfu.controller;
 import com.hxfu.entity.Word;
 import com.hxfu.service.WordService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,8 +17,8 @@ public class WordController {
     private int COUNT=10;
 
     @GetMapping("/getwords")
-    public List<Word> listusers() {
-//        System.out.println("sss");
-        return wordService.getWords(COUNT);
+    public List<Word> listusers(@RequestParam("bookId") String bookId,@RequestParam("wordId") String wordId) {
+        System.out.println("sss");
+        return wordService.getWords(bookId, wordId);
     }
 }

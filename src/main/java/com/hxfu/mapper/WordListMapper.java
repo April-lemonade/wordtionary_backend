@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface WordListMapper {
     List<WordList> getAll();
+    int change(String bookId, String openid);
 }

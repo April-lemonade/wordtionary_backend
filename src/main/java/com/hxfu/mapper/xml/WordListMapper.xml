@@ -14,6 +14,9 @@
     <select id="getAll" resultMap="BaseResultMap" >
         select * from wordList
     </select>
+    <update id="change">
+        update user set bookId=#{bookId} where id = #{openid}
+    </update>
    <!-- <update id="editActivity" parameterType="com.hxfu.entity.Activity">
         update activities set content=#{content}, color = #{color} where id = #{id}
     </update>
