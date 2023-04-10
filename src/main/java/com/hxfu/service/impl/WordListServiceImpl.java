@@ -13,12 +13,22 @@ public class WordListServiceImpl implements WordListService {
     @Autowired
     private WordListMapper wordListMapper;
 
-    public List<WordList> getAll() {
-        return wordListMapper.getAll();
+    public List<WordList> getadminAll() {
+        return wordListMapper.getadminAll();
     }
 
     @Override
     public int change(String bookId, String openid) {
         return wordListMapper.change(bookId, openid);
+    }
+
+    @Override
+    public String getName(String bookId) {
+        return wordListMapper.getName(bookId);
+    }
+
+    @Override
+    public List<WordList> getuserAll(String openid) {
+        return wordListMapper.getuserAll(openid);
     }
 }

@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class WordList {
     private int id;
     private String name;
+    private String creator;
 }

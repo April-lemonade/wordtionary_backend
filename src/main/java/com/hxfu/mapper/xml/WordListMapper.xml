@@ -11,12 +11,18 @@
         insert into activities (content,color,timestamp)
         values(#{content},#{color},#{timestamp})
     </insert>-->
-    <select id="getAll" resultMap="BaseResultMap" >
-        select * from wordList
+    <select id="getadminAll" resultMap="BaseResultMap" >
+        select * from wordList where creator = 'admin'
+    </select>
+    <select id="getuserAll" resultMap="BaseResultMap" >
+        select * from wordList where creator = #{openid}
     </select>
     <update id="change">
         update user set bookId=#{bookId} where id = #{openid}
     </update>
+    <select id="getName" resultType="string" >
+        select name from wordList where id = #{bookId}
+    </select>
    <!-- <update id="editActivity" parameterType="com.hxfu.entity.Activity">
         update activities set content=#{content}, color = #{color} where id = #{id}
     </update>
@@ -29,6 +35,7 @@
     <resultMap id="BaseResultMap" type="com.hxfu.entity.WordList">
         <result column="id" property="id" />
         <result column="name" property="name" />
+        <result column="creator" property="creator"/>
     </resultMap>
 <!--    <select id="findProduct" resultType="java.lang.String">
         SELECT url FROM product where code = #{code}
