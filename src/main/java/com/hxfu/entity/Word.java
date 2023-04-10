@@ -12,9 +12,7 @@ public class Word {
     private int id;
     private String word;
     private String brisound;
-    private String brisoundurl;
     private String unisound;
-    private String unisoundurl;
     private String[] audioFile;
-    private JSONObject translations;
+    private String oxfordTranslations;
 }

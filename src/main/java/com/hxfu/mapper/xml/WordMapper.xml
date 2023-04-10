@@ -14,10 +14,10 @@
     <select id="getWords" resultMap="BaseResultMap" >
         select * from word where listId = #{bookId} limit #{wordId},10
     </select>
-    <!-- <update id="editActivity" parameterType="com.hxfu.entity.Activity">
-         update activities set content=#{content}, color = #{color} where id = #{id}
+     <update id="addOxfordTranslation">
+         update word set oxfordTranslations=#{translation} where id = #{wordId}
      </update>
-     <delete id="deleteActivity">
+     <!--<delete id="deleteActivity">
          delete from activities where id = #{id}
      </delete>
      <select id="getCounts" resultType="java.lang.Integer">
@@ -28,6 +28,7 @@
         <result column="word" property="word" />
         <result column="brisound" property="brisound"/>
         <result column="unisound" property="unisound"/>
+        <result column="oxfordTranslations" property="oxfordTranslations"/>
     </resultMap>
     <!--    <select id="findProduct" resultType="java.lang.String">
             SELECT url FROM product where code = #{code}
