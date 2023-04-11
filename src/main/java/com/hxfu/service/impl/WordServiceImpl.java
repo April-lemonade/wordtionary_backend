@@ -24,7 +24,7 @@ public class WordServiceImpl implements WordService {
     public List<Word> getWords(String bookId, String wordId) {
         RestTemplate restTemplate = new RestTemplate();
 
-        List<Word> words = wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId) - 1);
+        List<Word> words = wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId));
         for (Word word : words) {
             if (word.getOxfordTranslations() == null) {
                 wordMapper.addOxfordTranslation(Oxford(word).toString(), word.getId());
@@ -61,7 +61,7 @@ public class WordServiceImpl implements WordService {
 
 
         }
-        return wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId) - 1);
+        return wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId));
     }
 
     public JSONObject Oxford(Word word) {

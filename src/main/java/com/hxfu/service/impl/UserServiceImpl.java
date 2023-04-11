@@ -46,4 +46,9 @@ public class UserServiceImpl implements UserService {
     public int saveInfo(User user) {
         return userMapper.saveInfo(user);
     }
+
+    @Override
+    public int updatewordid(String openid, int wordId) {
+        return userMapper.updatewordid(openid, wordId);
+    }
 }

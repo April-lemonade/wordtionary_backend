@@ -1,7 +1,6 @@
 package com.hxfu.mapper;
 
 import com.hxfu.entity.User;
-import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     User login(String openid);
@@ -9,4 +8,6 @@ public interface UserMapper {
     int addUser(String openid);
 
     int saveInfo(User user);
+
+    int updatewordid(String openid, int wordId);
 }

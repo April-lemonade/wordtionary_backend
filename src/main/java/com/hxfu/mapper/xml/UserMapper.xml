@@ -17,6 +17,11 @@
             avatarUrl = #{avatarUrl}
         where id = #{id}
     </update>
+    <update id="updatewordid">
+        update user
+        set wordId=#{wordId}
+        where id = #{openid}
+    </update>
     <select id="login" resultMap="BaseResultMap">
         select *
         from user
