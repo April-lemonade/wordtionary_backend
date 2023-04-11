@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class Word {
     private int id;
     private String word;
+    private int listid;
     private String brisound;
     private String unisound;
     private String[] audioFile;

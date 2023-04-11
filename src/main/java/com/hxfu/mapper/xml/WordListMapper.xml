@@ -6,19 +6,22 @@
         <result column="content" property="content" />
         <result column="color" property="color"/>
         <result column="timestamp" property="timestamp"/>
-    </resultMap>
-    <insert id="addActivity" parameterType="com.hxfu.entity.Activity">
-        insert into activities (content,color,timestamp)
-        values(#{content},#{color},#{timestamp})
-    </insert>-->
+    </resultMap>-->
+    <insert id="addList">
+        insert into wordList (name,creator)
+        values(#{name},#{openid})
+    </insert>
     <select id="getadminAll" resultMap="BaseResultMap" >
         select * from wordList where creator = 'admin'
     </select>
     <select id="getuserAll" resultMap="BaseResultMap" >
         select * from wordList where creator = #{openid}
     </select>
+    <select id="findId" resultType="int">
+        select id from wordList where name=#{name}
+    </select>
     <update id="change">
-        update user set bookId=#{bookId} where id = #{openid}
+        update user set bookId=#{bookId}, wordId=0 where id = #{openid}
     </update>
     <select id="getName" resultType="string" >
         select name from wordList where id = #{bookId}

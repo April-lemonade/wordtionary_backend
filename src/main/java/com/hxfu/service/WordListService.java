@@ -9,4 +9,5 @@ public interface WordListService {
     int change(String bookId, String openid);
     String getName(String bookId);
     List<WordList> getuserAll(String openid);
+    int addList(String name,String word, String openid);
 }

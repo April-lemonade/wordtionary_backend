@@ -9,4 +9,6 @@ public interface WordListMapper {
     int change(String bookId, String openid);
     String getName(String bookId);
     List<WordList> getuserAll(String openid);
+    int addList(String name, String openid);
+    int findId(String name);
 }

@@ -3,10 +3,7 @@ package com.hxfu.controller;
 import com.hxfu.entity.WordList;
 import com.hxfu.service.WordListService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,7 +26,7 @@ public class WordListController {
     }
 
     @GetMapping("/getname")
-    public String getName(@RequestParam("bookId") String bookId){
+    public String getName(@RequestParam("bookId") String bookId) {
         return wordListService.getName(bookId);
     }
 
@@ -37,5 +34,12 @@ public class WordListController {
     public List<WordList> userbook(@RequestParam("openid") String openid) {
 //        System.out.println("sss");
         return wordListService.getuserAll(openid);
+    }
+
+    @PostMapping("/addlist")
+    public int addlist(String name, String word, String openid) {
+//        System.out.println(word);
+        return wordListService.addList(name, word, openid);
+//        return 0;
     }
 }

@@ -6,31 +6,33 @@
         <result column="content" property="content" />
         <result column="color" property="color"/>
         <result column="timestamp" property="timestamp"/>
-    </resultMap>
-    <insert id="addActivity" parameterType="com.hxfu.entity.Activity">
-        insert into activities (content,color,timestamp)
-        values(#{content},#{color},#{timestamp})
-    </insert>-->
-    <select id="getWords" resultMap="BaseResultMap" >
-        select * from word where listId = #{bookId} limit #{wordId},10
+    </resultMap>-->
+    <insert id="addWord" parameterType="com.hxfu.entity.Word" useGeneratedKeys="true" keyProperty="id">
+        insert into word (word, listid)
+        values (#{word}, #{listid})
+    </insert>
+    <select id="getWords" resultMap="BaseResultMap">
+        select *
+        from word
+        where listId = #{bookId} limit #{wordId}
+            , 10
     </select>
-     <update id="addOxfordTranslation">
-         update word set oxfordTranslations=#{translation} where id = #{wordId}
-     </update>
-     <!--<delete id="deleteActivity">
-         delete from activities where id = #{id}
-     </delete>
-     <select id="getCounts" resultType="java.lang.Integer">
-         SELECT COUNT(*) FROM activities where color = #{color}
-     </select>-->
+    <update id="addOxfordTranslation">
+        update word
+        set oxfordTranslations=#{translation}
+        where id = #{wordId}
+    </update>
+    <!--<delete id="deleteActivity">
+        delete from activities where id = #{id}
+    </delete>
+    <select id="getCounts" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM activities where color = #{color}
+    </select>-->
     <resultMap id="BaseResultMap" type="com.hxfu.entity.Word">
-        <result column="id" property="id" />
-        <result column="word" property="word" />
+        <result column="id" property="id"/>
+        <result column="word" property="word"/>
         <result column="brisound" property="brisound"/>
         <result column="unisound" property="unisound"/>
         <result column="oxfordTranslations" property="oxfordTranslations"/>
     </resultMap>
-    <!--    <select id="findProduct" resultType="java.lang.String">
-            SELECT url FROM product where code = #{code}
-        </select>-->
 </mapper>
