@@ -10,4 +10,6 @@ public interface UserMapper {
     int saveInfo(User user);
 
     int updatewordid(String openid, int wordId);
+
+    int setAccount(String openid, String account, String pwd);
 }

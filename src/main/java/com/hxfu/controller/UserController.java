@@ -17,15 +17,19 @@ public class UserController {
     }
 
     @PostMapping("/saveinfo")
-    public int saveInfo( String avatarUrl, String name, String openid) {
-//        avatarUrl= avatarUrl.substring(11);
-        System.out.println(avatarUrl);
+    public int saveInfo(String avatarUrl, String name, String openid) {
+/*        System.out.println(avatarUrl);
         System.out.println(name);
-        System.out.println(openid);
+        System.out.println(openid);*/
         User user = new User();
         user.setName(name);
         user.setAvatarUrl(avatarUrl);
         user.setId(openid);
         return userService.saveInfo(user);
+    }
+
+    @PostMapping("/setaccount")
+    public int setAccount(String openid, String account, String pwd) {
+        return userService.setAccount(openid, account, pwd);
     }
 }

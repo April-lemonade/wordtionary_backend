@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
         RestTemplate restTemplate = new RestTemplate();
         // 设置参数
         httpHeaders.set("Accept", "application/json");
-
         // 创建一个响应体对象
         HttpEntity<String> httpEntity = new HttpEntity(httpHeaders);
         // 发送GET请求
@@ -50,5 +49,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public int updatewordid(String openid, int wordId) {
         return userMapper.updatewordid(openid, wordId);
+    }
+
+    @Override
+    public int setAccount(String openid, String account, String pwd) {
+        return userMapper.setAccount(openid,account,pwd);
     }
 }

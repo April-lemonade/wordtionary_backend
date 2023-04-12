@@ -13,4 +13,6 @@ public class User {
     private String avatarUrl;
     private int bookId;
     private int wordId;
+    private String account;
+    private String pwd;
 }

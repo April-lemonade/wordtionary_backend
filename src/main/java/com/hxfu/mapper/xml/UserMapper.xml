@@ -22,6 +22,11 @@
         set wordId=#{wordId}
         where id = #{openid}
     </update>
+    <update id="setAccount">
+        update user
+        set account=#{account},pwd=#{pwd}
+        where id = #{openid}
+    </update>
     <select id="login" resultMap="BaseResultMap">
         select *
         from user
@@ -42,6 +47,8 @@
         <result column="wordId" property="wordId"/>
         <result column="name" property="name"/>
         <result column="avatarUrl" property="avatarUrl"/>
+        <result column="account" property="account"/>
+        <result column="pwd" property="pwd"/>
     </resultMap>
     <!--    <select id="findProduct" resultType="java.lang.String">
             SELECT url FROM product where code = #{code}
