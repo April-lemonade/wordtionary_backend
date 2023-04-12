@@ -21,4 +21,10 @@ public class WordController {
         System.out.println("sss");
         return wordService.getWords(bookId, wordId);
     }
+
+    @GetMapping("/showwords")
+    public List<Word> showWords(@RequestParam("bookId") String bookId,@RequestParam("wordId") String wordId) {
+//        System.out.println("sss");
+        return wordService.showWords(bookId, wordId);
+    }
 }

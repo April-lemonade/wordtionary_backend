@@ -17,6 +17,12 @@
         where listId = #{bookId} limit #{wordId}
             , 10
     </select>
+    <select id="showWords" resultMap="SimpleMap">
+        select id,word
+        from word
+        where listId = #{bookId} limit #{wordId}
+            , 50
+    </select>
     <update id="addOxfordTranslation">
         update word
         set oxfordTranslations=#{translation}
@@ -34,5 +40,9 @@
         <result column="brisound" property="brisound"/>
         <result column="unisound" property="unisound"/>
         <result column="oxfordTranslations" property="oxfordTranslations"/>
+    </resultMap>
+    <resultMap id="SimpleMap" type="com.hxfu.entity.Word">
+        <result column="id" property="id"/>
+        <result column="word" property="word"/>
     </resultMap>
 </mapper>

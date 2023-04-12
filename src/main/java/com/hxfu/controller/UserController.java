@@ -16,6 +16,12 @@ public class UserController {
         return userService.login(code);
     }
 
+    @PostMapping("/weblogin")
+    public User webLogin(String account, String pwd) {
+
+        return userService.webLogin(account, pwd);
+    }
+
     @PostMapping("/saveinfo")
     public int saveInfo(String avatarUrl, String name, String openid) {
 /*        System.out.println(avatarUrl);

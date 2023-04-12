@@ -24,13 +24,20 @@
     </update>
     <update id="setAccount">
         update user
-        set account=#{account},pwd=#{pwd}
+        set account=#{account},
+            pwd=#{pwd}
         where id = #{openid}
     </update>
     <select id="login" resultMap="BaseResultMap">
         select *
         from user
         where id = #{openid}
+    </select>
+    <select id="webLogin" resultMap="BaseResultMap">
+        select *
+        from user
+        where account = #{account}
+          and pwd = #{pwd}
     </select>
     <!-- <update id="editActivity" parameterType="com.hxfu.entity.Activity">
          update activities set content=#{content}, color = #{color} where id = #{id}

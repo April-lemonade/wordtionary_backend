@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int setAccount(String openid, String account, String pwd) {
-        return userMapper.setAccount(openid,account,pwd);
+        return userMapper.setAccount(openid, account, pwd);
+    }
+
+    @Override
+    public User webLogin(String account, String pwd) {
+        return userMapper.webLogin(account, pwd);
     }
 }

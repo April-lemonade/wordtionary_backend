@@ -64,6 +64,11 @@ public class WordServiceImpl implements WordService {
         return wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId));
     }
 
+    @Override
+    public List<Word> showWords(String bookId, String wordId) {
+        return wordMapper.showWords(Integer.parseInt(bookId),Integer.parseInt(wordId));
+    }
+
     public JSONObject Oxford(Word word) {
         String Base_URL = "https://od-api.oxforddictionaries.com/api/v2";
         String Application_ID = "55a7fbae";
