@@ -4,6 +4,7 @@ import com.hxfu.entity.WordList;
 import com.hxfu.service.WordListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -15,13 +16,12 @@ public class WordListController {
 
     @GetMapping("/getadmin")
     public List<WordList> listusers() {
-        System.out.println("sss");
         return wordListService.getadminAll();
     }
 
     @GetMapping("/change")
     public int change(@RequestParam("bookId") String bookId, @RequestParam("openid") String openid) {
-        System.out.println(bookId);
+//        System.out.println(bookId);
         return wordListService.change(bookId, openid);
     }
 
@@ -32,20 +32,28 @@ public class WordListController {
 
     @GetMapping("/getuser")
     public List<WordList> userbook(@RequestParam("openid") String openid) {
-//        System.out.println("sss");
         return wordListService.getuserAll(openid);
     }
 
     @PostMapping("/addlist")
     public int addlist(String name, String word, String openid) {
-        System.out.println(word);
         return wordListService.addList(name, word, openid);
-//        return 0;
     }
+
     @PostMapping("/webaddlist")
     public int webaddlist(String name, String word, String openid) {
-//        System.out.println(word);
         return wordListService.webaddList(name, word, openid);
-//        return 0;
+    }
+
+    @PostMapping("/fileaddlist")
+    public int fileaddlist(@RequestParam("excelFile") MultipartFile file,
+                           @RequestParam(value = "name") String name,
+                           @RequestParam(value = "openid") String openid) {
+
+        String fileName = file.getOriginalFilename();
+        System.out.println(fileName);
+        wordListService.fileaddlist(file,name,openid);
+//        return wordListService.webaddList(name,, openid);
+        return 0;
     }
 }
