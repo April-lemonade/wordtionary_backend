@@ -11,9 +11,12 @@
         insert into record (openid, wordId, date, familiar)
         values (#{openid}, #{wordId}, #{date}, #{familiar})
     </insert>
-    <!--<select id="getAll" resultMap="BaseResultMap" >
-        select * from activities
-    </select>-->
+    <select id="getAll" resultType="com.hxfu.entity.Statistics">
+        SELECT date, COUNT(id) AS count
+        FROM record
+        WHERE openid=#{openid}
+        GROUP BY date
+    </select>
     <!--<update id="editActivity" parameterType="com.hxfu.entity.Activity">
         update activities set content=#{content}, color = #{color} where id = #{id}
     </update>-->
