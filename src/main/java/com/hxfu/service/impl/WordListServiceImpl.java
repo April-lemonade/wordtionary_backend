@@ -45,7 +45,24 @@ public class WordListServiceImpl implements WordListService {
         int listid = wordListMapper.findId(name);
         String[] words = word.split("\n");
         for (String i : words) {
-            System.out.println(i);
+            System.out.println("!!!!!!!!!!!!!!!!" + i);
+            Word temp = new Word();
+            temp.setWord(i);
+            temp.setListid(listid);
+            wordMapper.addWord(temp);
+        }
+        return 0;
+    }
+
+    @Override
+    public int webaddList(String name, String word, String openid) {
+        //新词书插入wordlist表
+        wordListMapper.addList(name, openid);
+        //新单词插入word表
+        int listid = wordListMapper.findId(name);
+        String[] words = word.split(",");
+        for (String i : words) {
+            System.out.println("!!!!!!!!!!!!!!!!" + i);
             Word temp = new Word();
             temp.setWord(i);
             temp.setListid(listid);

@@ -10,4 +10,6 @@ public interface WordListService {
     String getName(String bookId);
     List<WordList> getuserAll(String openid);
     int addList(String name,String word, String openid);
+    int webaddList(String name,String word, String openid);
+
 }

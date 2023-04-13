@@ -38,8 +38,14 @@ public class WordListController {
 
     @PostMapping("/addlist")
     public int addlist(String name, String word, String openid) {
-//        System.out.println(word);
+        System.out.println(word);
         return wordListService.addList(name, word, openid);
+//        return 0;
+    }
+    @PostMapping("/webaddlist")
+    public int webaddlist(String name, String word, String openid) {
+//        System.out.println(word);
+        return wordListService.webaddList(name, word, openid);
 //        return 0;
     }
 }
