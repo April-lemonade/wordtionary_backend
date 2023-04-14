@@ -9,6 +9,8 @@ public interface UserService {
 
     int updatewordid(String openid, int wordId);
 
+    int changeDictionary(String openid, int dictionaryId);
+
     int setAccount(String openid, String account, String pwd);
 
     User webLogin(String account, String pwd);

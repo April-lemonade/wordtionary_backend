@@ -52,6 +52,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public int changeDictionary(String openid, int dictionaryId) {
+        return userMapper.changeDictionary(openid, dictionaryId);
+    }
+
+    @Override
     public int setAccount(String openid, String account, String pwd) {
         return userMapper.setAccount(openid, account, pwd);
     }

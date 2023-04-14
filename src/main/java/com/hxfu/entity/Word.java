@@ -16,4 +16,5 @@ public class Word {
     private String unisound;
     private String[] audioFile;
     private String oxfordTranslations;
+    private String cambridgeTranslations;
 }

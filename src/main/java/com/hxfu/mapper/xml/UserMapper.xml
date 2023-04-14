@@ -22,6 +22,11 @@
         set wordId=#{wordId}
         where id = #{openid}
     </update>
+    <update id="changeDictionary">
+        update user
+        set dictionaryId=#{dictionaryId}
+        where id = #{openid}
+    </update>
     <update id="setAccount">
         update user
         set account=#{account},
@@ -56,6 +61,7 @@
         <result column="avatarUrl" property="avatarUrl"/>
         <result column="account" property="account"/>
         <result column="pwd" property="pwd"/>
+        <result column="dictionaryId" property="dictionaryId"/>
     </resultMap>
     <!--    <select id="findProduct" resultType="java.lang.String">
             SELECT url FROM product where code = #{code}

@@ -15,4 +15,5 @@ public class User {
     private int wordId;
     private String account;
     private String pwd;
+    private int dictionaryId;
 }

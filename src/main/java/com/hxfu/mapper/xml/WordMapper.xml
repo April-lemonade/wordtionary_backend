@@ -28,6 +28,11 @@
         set oxfordTranslations=#{translation}
         where id = #{wordId}
     </update>
+    <update id="addCambridgeTranslation">
+        update word
+        set cambridgeTranslations=#{translation}
+        where id = #{wordId}
+    </update>
     <!--<delete id="deleteActivity">
         delete from activities where id = #{id}
     </delete>
@@ -40,6 +45,7 @@
         <result column="brisound" property="brisound"/>
         <result column="unisound" property="unisound"/>
         <result column="oxfordTranslations" property="oxfordTranslations"/>
+        <result column="cambridgeTranslations" property="cambridgeTranslations"/>
     </resultMap>
     <resultMap id="SimpleMap" type="com.hxfu.entity.Word">
         <result column="id" property="id"/>

@@ -38,4 +38,9 @@ public class UserController {
     public int setAccount(String openid, String account, String pwd) {
         return userService.setAccount(openid, account, pwd);
     }
+
+    @GetMapping("/changedic")
+    public int changeDictionary(String openid, String dictionaryId) {
+        return userService.changeDictionary(openid, Integer.parseInt(dictionaryId));
+    }
 }
