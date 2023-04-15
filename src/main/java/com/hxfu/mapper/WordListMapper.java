@@ -11,4 +11,5 @@ public interface WordListMapper {
     List<WordList> getuserAll(String openid);
     int addList(String name, String openid);
     int findId(String name);
+    int deleteList(String bookId);
 }

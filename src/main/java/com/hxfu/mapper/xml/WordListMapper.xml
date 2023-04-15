@@ -26,13 +26,13 @@
     <select id="getName" resultType="string" >
         select name from wordList where id = #{bookId}
     </select>
-   <!-- <update id="editActivity" parameterType="com.hxfu.entity.Activity">
+<!--    <update id="editActivity" parameterType="com.hxfu.entity.Activity">
         update activities set content=#{content}, color = #{color} where id = #{id}
-    </update>
-    <delete id="deleteActivity">
-        delete from activities where id = #{id}
+    </update>-->
+    <delete id="deleteList">
+        delete from wordList where id = #{bookId}
     </delete>
-    <select id="getCounts" resultType="java.lang.Integer">
+<!--    <select id="getCounts" resultType="java.lang.Integer">
         SELECT COUNT(*) FROM activities where color = #{color}
     </select>-->
     <resultMap id="BaseResultMap" type="com.hxfu.entity.WordList">

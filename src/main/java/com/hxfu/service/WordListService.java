@@ -20,4 +20,6 @@ public interface WordListService {
     int webaddList(String name, String word, String openid);
 
     int fileaddlist(MultipartFile file, String name, String openid);
+
+    int deleteList(String bookId);
 }

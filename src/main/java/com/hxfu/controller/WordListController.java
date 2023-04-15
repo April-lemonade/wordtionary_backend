@@ -56,4 +56,9 @@ public class WordListController {
 //        return wordListService.webaddList(name,, openid);
         return 0;
     }
+
+    @GetMapping("/deletelist")
+    public int deleteList(@RequestParam("bookid") String bookid) {
+        return wordListService.deleteList(bookid);
+    }
 }

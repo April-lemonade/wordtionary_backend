@@ -115,26 +115,35 @@ public class WordListServiceImpl implements WordListService {
                     temp.setListid(listid);
                     wordMapper.addWord(temp);
                     //循环获得每一行中每一列数据
-//                    xxx = new xxx();
-/*
+                    /*
                     for (int k = 0; k < physicalNumberOfCells; k++) {
                         XSSFCell cell = row.getCell(k);
 
                         //pridict里边的excell是数字型，要把先转换成String类型
                         */
-/*if (cell != null) {
+                    /*
+                        if (cell != null) {
                             cell.setCellType(Cell.CELL_TYPE_STRING);
-                        }*//*
+                        }
+                        */
+                    /*
 
                         String cellValue = cell.getStringCellValue();
                     }
-*/
+                       */
                 }
             }
             return 0;
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return 0;
+    }
+
+    @Override
+    public int deleteList(String bookId) {
+        wordListMapper.deleteList(bookId);
+        wordMapper.deleteWord(bookId);
         return 0;
     }
 }

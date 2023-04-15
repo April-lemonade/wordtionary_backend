@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hxfu.mapper.WordMapper">
-    <!--<resultMap id="BaseResultMap" type="com.hxfu.entity.Activity">
-        <result column="id" property="id" />
-        <result column="content" property="content" />
-        <result column="color" property="color"/>
-        <result column="timestamp" property="timestamp"/>
-    </resultMap>-->
     <insert id="addWord" parameterType="com.hxfu.entity.Word" useGeneratedKeys="true" keyProperty="id">
         insert into word (word, listid)
         values (#{word}, #{listid})
@@ -33,12 +27,9 @@
         set cambridgeTranslations=#{translation}
         where id = #{wordId}
     </update>
-    <!--<delete id="deleteActivity">
-        delete from activities where id = #{id}
+    <delete id="deleteWord">
+        delete from word where listId = #{bookId}
     </delete>
-    <select id="getCounts" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM activities where color = #{color}
-    </select>-->
     <resultMap id="BaseResultMap" type="com.hxfu.entity.Word">
         <result column="id" property="id"/>
         <result column="word" property="word"/>
