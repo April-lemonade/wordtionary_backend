@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hxfu.mapper.RecordMapper">
-    <!--<resultMap id="BaseResultMap" type="com.hxfu.entity.Activity">
-        <result column="id" property="id" />
-        <result column="content" property="content" />
-        <result column="color" property="color"/>
-        <result column="timestamp" property="timestamp"/>
-    </resultMap>-->
     <insert id="addRecord">
-        insert into record (openid, wordId, date, familiar)
-        values (#{openid}, #{wordId}, #{date}, #{familiar})
+        insert into record (openid, wordId, date, familiar, familiarCount, nextDate)
+        values (#{openid}, #{wordId}, #{date}, #{familiar}, #{familiarCount}, #{nextDate})
     </insert>
     <select id="getAll" resultType="com.hxfu.entity.Statistics">
         SELECT date, COUNT(id) AS count
@@ -23,17 +17,19 @@
     <!--<delete id="deleteActivity">
         delete from activities where id = #{id}
     </delete>-->
-    <!--<select id="getCounts" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM activities where color = #{color}
-    </select>-->
+    <select id="getFamiliarCount" resultType="int">
+        SELECT familiarCount
+        FROM record
+        where openid = #{openid}
+          and wordId = #{wordId}
+    </select>
     <resultMap id="BaseResultMap" type="com.hxfu.entity.Record">
         <result column="id" property="id"/>
         <result column="openid" property="openid"/>
         <result column="wordId" property="wordId"/>
         <result column="date" property="date"/>
         <result column="familiar" property="familiar"/>
+        <result column="familiarCount" property="familiarCount"/>
+        <result column="nextDate" property="nextDate"/>
     </resultMap>
-    <!--    <select id="findProduct" resultType="java.lang.String">
-            SELECT url FROM product where code = #{code}
-        </select>-->
 </mapper>

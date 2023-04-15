@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hxfu.mapper.UserMapper">
-    <!--    <resultMap id="BaseResultMap" type="com.hxfu.entity.Activity">-->
-    <!--        <result column="id" property="id" />-->
-    <!--        <result column="content" property="content" />-->
-    <!--        <result column="color" property="color"/>-->
-    <!--        <result column="timestamp" property="timestamp"/>-->
-    <!--    </resultMap>-->
     <insert id="addUser">
-        insert into user (id, bookId, wordId)
-        values (#{openid}, 0, 0)
+        insert into user (id, bookId, wordId, dictionaryId, familiar)
+        values (#{openid}, 0, 0, 0, "2,4,7,15")
     </insert>
     <update id="saveInfo" parameterType="com.hxfu.entity.User">
         update user
@@ -44,15 +38,24 @@
         where account = #{account}
           and pwd = #{pwd}
     </select>
-    <!-- <update id="editActivity" parameterType="com.hxfu.entity.Activity">
-         update activities set content=#{content}, color = #{color} where id = #{id}
-     </update>
-     <delete id="deleteActivity">
-         delete from activities where id = #{id}
-     </delete>
-     <select id="getCounts" resultType="java.lang.Integer">
-         SELECT COUNT(*) FROM activities where color = #{color}
-     </select>-->
+    <select id="getFamiliar" resultType="string">
+        select familiar
+        from user
+        where id = #{openid}
+    </select>
+    <update id="changeFamiliar">
+        update user
+        set familiar=#{familiar}
+        where id = #{openid}
+    </update>
+    <!-- <delete id="deleteActivity">
+        delete from activities where id = #{id}
+    </delete>-->
+    <select id="getWordId" resultType="int">
+        SELECT wordId
+        FROM user
+        where id = #{openid}
+    </select>
     <resultMap id="BaseResultMap" type="com.hxfu.entity.User">
         <result column="id" property="id"/>
         <result column="bookId" property="bookId"/>
@@ -62,8 +65,6 @@
         <result column="account" property="account"/>
         <result column="pwd" property="pwd"/>
         <result column="dictionaryId" property="dictionaryId"/>
+        <result column="familiar" property="familiar"/>
     </resultMap>
-    <!--    <select id="findProduct" resultType="java.lang.String">
-            SELECT url FROM product where code = #{code}
-        </select>-->
 </mapper>

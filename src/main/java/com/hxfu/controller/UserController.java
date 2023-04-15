@@ -43,4 +43,9 @@ public class UserController {
     public int changeDictionary(String openid, String dictionaryId) {
         return userService.changeDictionary(openid, Integer.parseInt(dictionaryId));
     }
+
+    @GetMapping("/changefamiliar")
+    public int changeFamiliar(String openid, String familiar) {
+        return userService.changeFamiliar(openid, familiar);
+    }
 }

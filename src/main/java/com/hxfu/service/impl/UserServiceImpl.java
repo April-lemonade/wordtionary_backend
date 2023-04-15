@@ -65,4 +65,14 @@ public class UserServiceImpl implements UserService {
     public User webLogin(String account, String pwd) {
         return userMapper.webLogin(account, pwd);
     }
+
+    @Override
+    public int getWordId(String openid) {
+        return userMapper.getWordId(openid);
+    }
+
+    @Override
+    public int changeFamiliar(String openid, String familiar) {
+        return userMapper.changeFamiliar(openid, familiar);
+    }
 }

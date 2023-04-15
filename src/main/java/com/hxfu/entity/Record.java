@@ -15,4 +15,6 @@ public class Record {
     private String wordId;
     private Date date;
     private int familiar;
+    private int familiarCount;
+    private Date nextDate;
 }

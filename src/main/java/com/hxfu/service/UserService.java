@@ -14,4 +14,8 @@ public interface UserService {
     int setAccount(String openid, String account, String pwd);
 
     User webLogin(String account, String pwd);
+
+    int getWordId(String openid);
+
+    int changeFamiliar(String openid, String familiar);
 }

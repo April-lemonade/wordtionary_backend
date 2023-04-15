@@ -16,4 +16,10 @@ public interface UserMapper {
     int setAccount(String openid, String account, String pwd);
 
     User webLogin(String account, String pwd);
+
+    int getWordId(String openid);
+
+    String getFamiliar(String openid);
+
+    int changeFamiliar(String openid, String familiar);
 }

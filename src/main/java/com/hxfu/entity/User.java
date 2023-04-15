@@ -16,4 +16,5 @@ public class User {
     private String account;
     private String pwd;
     private int dictionaryId;
+    private String familiar;
 }
