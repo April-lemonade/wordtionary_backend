@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hxfu.mapper.WordListMapper">
-    <!--<resultMap id="BaseResultMap" type="com.hxfu.entity.Activity">
-        <result column="id" property="id" />
-        <result column="content" property="content" />
-        <result column="color" property="color"/>
-        <result column="timestamp" property="timestamp"/>
-    </resultMap>-->
     <insert id="addList">
         insert into wordList (name,creator)
         values(#{name},#{openid})
@@ -26,9 +20,9 @@
     <select id="getName" resultType="string" >
         select name from wordList where id = #{bookId}
     </select>
-<!--    <update id="editActivity" parameterType="com.hxfu.entity.Activity">
-        update activities set content=#{content}, color = #{color} where id = #{id}
-    </update>-->
+    <update id="changeListName">
+        update wordList set name=#{name} where id = #{bookId}
+    </update>
     <delete id="deleteList">
         delete from wordList where id = #{bookId}
     </delete>
@@ -40,7 +34,4 @@
         <result column="name" property="name" />
         <result column="creator" property="creator"/>
     </resultMap>
-<!--    <select id="findProduct" resultType="java.lang.String">
-        SELECT url FROM product where code = #{code}
-    </select>-->
 </mapper>

@@ -22,4 +22,6 @@ public interface WordListService {
     int fileaddlist(MultipartFile file, String name, String openid);
 
     int deleteList(String bookId);
+
+    int changeListName(String name, String bookId);
 }

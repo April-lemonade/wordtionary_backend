@@ -61,4 +61,9 @@ public class WordListController {
     public int deleteList(@RequestParam("bookid") String bookid) {
         return wordListService.deleteList(bookid);
     }
+
+    @GetMapping("/changelistname")
+    public int changeListName(@RequestParam("name")String name, @RequestParam("bookid")String bookId){
+        return wordListService.changeListName(name, bookId);
+    }
 }

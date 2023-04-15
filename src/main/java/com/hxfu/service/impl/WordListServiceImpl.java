@@ -146,4 +146,9 @@ public class WordListServiceImpl implements WordListService {
         wordMapper.deleteWord(bookId);
         return 0;
     }
+
+    @Override
+    public int changeListName(String name, String bookId) {
+        return wordListMapper.changeListName(name,bookId);
+    }
 }
