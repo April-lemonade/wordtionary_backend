@@ -48,11 +48,13 @@
         set familiar=#{familiar}
         where id = #{openid}
     </update>
-    <!-- <delete id="deleteActivity">
-        delete from activities where id = #{id}
-    </delete>-->
     <select id="getWordId" resultType="int">
         SELECT wordId
+        FROM user
+        where id = #{openid}
+    </select>
+    <select id="getDailyCount" resultType="int">
+        SELECT dailyCount
         FROM user
         where id = #{openid}
     </select>
@@ -66,5 +68,6 @@
         <result column="pwd" property="pwd"/>
         <result column="dictionaryId" property="dictionaryId"/>
         <result column="familiar" property="familiar"/>
+        <result column="dailyCount" property="dailyCount"/>
     </resultMap>
 </mapper>

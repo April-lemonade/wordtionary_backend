@@ -26,7 +26,7 @@ public class RecordServiceImpl implements RecordService {
     @Override
     public int addRecord(String openid, int wordId, int familiar) throws ParseException {
         Date date = new Date();
-        DateFormat format = new SimpleDateFormat("yy-MM-dd");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String time = format.format(date);
         List<Record> records = recordMapper.getFamiliarCount(openid, wordId);
         String[] trace = userMapper.getFamiliar(openid).split(",");

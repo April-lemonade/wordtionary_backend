@@ -17,4 +17,5 @@ public class User {
     private String pwd;
     private int dictionaryId;
     private String familiar;
+    private int dailyCount;
 }

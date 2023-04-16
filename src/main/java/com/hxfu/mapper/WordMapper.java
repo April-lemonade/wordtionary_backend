@@ -16,4 +16,6 @@ public interface WordMapper {
     List<Word> showWords(int bookId, int wordId);
 
     int deleteWord(String bookId);
+
+    int getCounts(String bookId);
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/wordlist")
@@ -52,7 +53,7 @@ public class WordListController {
 
         String fileName = file.getOriginalFilename();
         System.out.println(fileName);
-        wordListService.fileaddlist(file,name,openid);
+        wordListService.fileaddlist(file, name, openid);
 //        return wordListService.webaddList(name,, openid);
         return 0;
     }
@@ -63,7 +64,12 @@ public class WordListController {
     }
 
     @GetMapping("/changelistname")
-    public int changeListName(@RequestParam("name")String name, @RequestParam("bookid")String bookId){
+    public int changeListName(@RequestParam("name") String name, @RequestParam("bookid") String bookId) {
         return wordListService.changeListName(name, bookId);
+    }
+
+    @GetMapping("/getprogress")
+    public Map<String, String> getProgress(@RequestParam("bookid") String bookId, @RequestParam("openid") String openid) {
+        return wordListService.getProgress(bookId, openid);
     }
 }

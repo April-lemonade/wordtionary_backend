@@ -2,6 +2,7 @@ package com.hxfu.service.impl;
 
 import com.hxfu.entity.Word;
 import com.hxfu.entity.WordList;
+import com.hxfu.mapper.UserMapper;
 import com.hxfu.mapper.WordListMapper;
 import com.hxfu.mapper.WordMapper;
 import com.hxfu.service.WordListService;
@@ -15,8 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class WordListServiceImpl implements WordListService {
@@ -24,6 +27,8 @@ public class WordListServiceImpl implements WordListService {
     private WordListMapper wordListMapper;
     @Autowired
     private WordMapper wordMapper;
+    @Autowired
+    private UserMapper userMapper;
 
     public List<WordList> getadminAll() {
         return wordListMapper.getadminAll();
@@ -149,6 +154,31 @@ public class WordListServiceImpl implements WordListService {
 
     @Override
     public int changeListName(String name, String bookId) {
-        return wordListMapper.changeListName(name,bookId);
+        return wordListMapper.changeListName(name, bookId);
+    }
+
+    @Override
+    public Map<String, String> getProgress(String bookId, String openid) {
+        Map<String, String> map = new HashMap<>();
+        int all = wordMapper.getCounts(bookId);
+        int dailyCount = userMapper.getDailyCount(openid);
+        int current = userMapper.getWordId(openid);
+        int leftCount = all - current;
+        int leftDays = (int) Math.ceil((double) leftCount / dailyCount);
+        float progress = (float) current / all;
+        DecimalFormat df = new DecimalFormat("0.0000");//格式化小数
+        String s = df.format(progress);//返回的是String类型
+        map.put("progress", s);
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(new Date());
+        // 把日期往后增加一天,整数  往后推,负数往前移动
+        calendar.add(Calendar.DATE, leftDays);
+        // 这个时间就是日期往后推一天的结果
+        Date finishDate = calendar.getTime();
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String time = format.format(finishDate);
+        map.put("finishDate", time);
+        map.put("leftCount", leftCount + "");
+        return map;
     }
 }

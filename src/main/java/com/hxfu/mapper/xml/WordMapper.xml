@@ -17,6 +17,10 @@
         where listId = #{bookId} limit #{wordId}
             , 50
     </select>
+    <select id="getCounts" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM word
+        where listId = #{bookId}
+    </select>
     <update id="addOxfordTranslation">
         update word
         set oxfordTranslations=#{translation}
