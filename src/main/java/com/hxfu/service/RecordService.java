@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface RecordService {
-    int addRecord(String openid, int wordId, int familiar) throws ParseException;
+    int addRecord(String openid, int wordId, int listId, int familiar) throws ParseException;
 
     List<Statistics> getAll(String openid);
 

@@ -1,7 +1,10 @@
 package com.hxfu.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hxfu.entity.Record;
 import com.hxfu.entity.Word;
+import com.hxfu.mapper.RecordMapper;
+import com.hxfu.mapper.UserMapper;
 import com.hxfu.mapper.WordMapper;
 import com.hxfu.service.WordService;
 import org.jsoup.Jsoup;
@@ -18,7 +21,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,59 +32,93 @@ import java.util.List;
 public class WordServiceImpl implements WordService {
     @Autowired
     private WordMapper wordMapper;
+    @Autowired
+    private RecordMapper recordMapper;
+    @Autowired
+    private UserMapper userMapper;
 
 
     @Override
-    public List<Word> getWords(String bookId, String wordId, String dictionaryId) throws IOException {
-        RestTemplate restTemplate = new RestTemplate();
-
-        List<Word> words = wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId));
-        for (Word word : words) {
-            if (word.getOxfordTranslations() == null && Integer.parseInt(dictionaryId) == 0) {
-                wordMapper.addOxfordTranslation(Oxford(word).toString(), word.getId());
+    public List<Word> getWords(String bookId, String wordId, String dictionaryId, String openid) throws IOException {
+        List<Word> allWords = new ArrayList<>();
+        Date date = new Date();
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String time = format.format(date);
+        //取复习的单词
+        List<Integer> reviewIds = recordMapper.getReview(openid, time);
+        List<Word> reviewWords = new ArrayList<>();
+        for (int i : reviewIds) {
+            Word reviewWord = wordMapper.getReviewWords(i);
+            List<Record> records = recordMapper.getFamiliarCount(openid, i);
+            Record lastRecord = records.get(records.size() - 1);
+            if (!format.format(lastRecord.getDate()).equals(time)) { //今天还没学过
+                allWords.add(reviewWord);
+                reviewWords.add(reviewWord);
             }
-            if (word.getCambridgeTranslations() == null && Integer.parseInt(dictionaryId) == 1) {
-                System.out.println(Cambridge(word));
-                wordMapper.addCambridgeTranslation(Cambridge(word), word.getId());
-            }
-            /*String url = Base_URL + "/translations/en/zh/" + word.getWord();
-            // 创建一个请求头对象
-            HttpHeaders httpHeaders = new HttpHeaders();
-            // 设置参数
-            httpHeaders.set("Accept", "application/json");
-            httpHeaders.set("app_id", Application_ID);
-            httpHeaders.set("app_key", Application_Keys);
-
-            // 创建一个响应体对象
-            HttpEntity<String> httpEntity = new HttpEntity(httpHeaders);
-            // 发送GET请求
-            ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.GET, httpEntity, String.class);
-
-            // 获取响应对象里的 body 对象
-//            Map<String, Object> body = responseEntity.getBody();
-            JSONObject body = JSONObject.parseObject(responseEntity.getBody());
-//            word.setTranslations();
-
-            JSONObject results = (JSONObject) body.getJSONArray("results").get(0);
-            results = results.getJSONArray("lexicalEntries").getJSONObject(0).getJSONArray("entries").getJSONObject(0);
-//            results = results.getJSONArray("entries").getJSONObject(0);
-            word.setTranslations(results);*/
-//            String brisound = results.getJSONArray("pronunciations").getJSONObject(0).get("audioFile").toString();
-//            String unisound = results.getJSONArray("pronunciations").getJSONObject(1).get("audioFile").toString();
-//            results = results.getJSONArray("pronunciations").getJSONObject(0);
-//            String[] files = new String[2];
-//            files[0] = brisound;
-//            files[1] = unisound;
-//            word.setAudioFile(files);
-
-
         }
-        return wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId));
+        //取新学的单词
+        int dailyCount = userMapper.getDailyCount(openid);
+        int learnedCount = 0;
+        List<Record> todayRecords = recordMapper.getTodayRecord(openid, time);
+        for (Record todayRecord : todayRecords) {
+            List<Record> records = recordMapper.getFamiliarCount(openid, Integer.parseInt(todayRecord.getWordId()));
+            if (format.format(records.get(0).getDate()).equals(time)) {
+                learnedCount = learnedCount + 1;
+            }
+        }
+        System.out.println("|||||||||||||" + learnedCount);
+        if (learnedCount < dailyCount) {
+            List<Word> words = wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId), dailyCount - learnedCount);
+            for (Word word : words) {
+                if (word.getOxfordTranslations() == null && Integer.parseInt(dictionaryId) == 0) {
+                    wordMapper.addOxfordTranslation(Oxford(word).toString(), word.getId());
+                }
+                if (word.getCambridgeTranslations() == null && Integer.parseInt(dictionaryId) == 1) {
+                    System.out.println(Cambridge(word));
+                    wordMapper.addCambridgeTranslation(Cambridge(word), word.getId());
+                }
+            }
+            List<Word> newWords = wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId), dailyCount - learnedCount);
+            allWords.addAll(newWords);
+        }
+        //取重学的单词
+       /* List<Integer> relearnIds = recordMapper.getRelearn(time, openid);
+        List<Word> relearnWords = new ArrayList<>();
+        for (int i : relearnIds) {
+            Word relearnWord = wordMapper.getReviewWords(i);
+            reviewWords.add(relearnWord);
+            allWords.add(relearnWord);
+        }*/
+//        allWords.add(reviewWords);
+//        return wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId));
+        return allWords;
     }
 
     @Override
     public List<Word> showWords(String bookId, String wordId) {
         return wordMapper.showWords(Integer.parseInt(bookId), Integer.parseInt(wordId));
+    }
+
+    @Override
+    public List<Word> getRelearn(String openid) {
+        Date date = new Date();
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String time = format.format(date);
+        List<Integer> relearnIds = recordMapper.getRelearn(time, openid);
+        List<Word> relearnWords = new ArrayList<>();
+        for (int i : relearnIds) {
+            Word relearnWord = wordMapper.getReviewWords(i);
+            List<Record> records = recordMapper.getFamiliarCount(openid, relearnWord.getId());
+            System.out.println("可能需要重学的单词的最后一次记忆" + records.get(records.size() - 1));
+
+            if (records.get(records.size() - 1).getFamiliar() == -1) {
+                //reviewWords.add(relearnWord);
+                //allWords.add(relearnWord);
+                relearnWords.add(relearnWord);
+                System.out.println("要重新学的单词！" + relearnWord.toString());
+            }
+        }
+        return relearnWords;
     }
 
     public JSONObject Oxford(Word word) {
@@ -114,17 +154,6 @@ public class WordServiceImpl implements WordService {
         String url = "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93/" + word.getWord();
         System.out.println(url);
         Document document = Jsoup.parse(new URL(url), 10000);
-        /*Document document = null;
-        Connection con = Jsoup.connect(url).ignoreHttpErrors(true).userAgent(
-                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36")
-                .timeout(30000); // 设置连接超时时间
-        Connection.Response response = con.execute();
-        if (response.statusCode() == 200) {
-            document = con.get();
-        } else {
-            System.out.println(response.statusCode());
-            return null;
-        }*/
         Elements definitions = document.getElementsByClass("def ddef_d db");
         Elements deftrans = document.getElementsByClass("trans dtrans dtrans-se  break-cj");
         Elements examples = document.getElementsByClass("def-body ddef_b");
@@ -136,8 +165,8 @@ public class WordServiceImpl implements WordService {
         JSONObject jsonObject = new JSONObject();
         for (int i = 0; i < def.size(); i++) {
             JSONObject jsonObject1 = new JSONObject();
-            jsonObject1.put("definition",def.get(i));
-            jsonObject1.put("examples",examp.get(i));
+            jsonObject1.put("definition", def.get(i));
+            jsonObject1.put("examples", examp.get(i));
             arr.add(jsonObject1);
         }
         JSONObject jsonObject1 = new JSONObject();
@@ -159,7 +188,6 @@ public class WordServiceImpl implements WordService {
 
     public ArrayList<String> deal(Elements deftrans, Elements examples) {
         ArrayList<String> res = new ArrayList<>();
-//        Elements elements = new Elements();
         Iterator defiter = deftrans.listIterator();
         Iterator examiter = examples.listIterator();
         while (defiter.hasNext() && examiter.hasNext()) {
@@ -168,19 +196,6 @@ public class WordServiceImpl implements WordService {
             String temp = example.html();
             temp.replace(deftran.html(), "");
             res.add(temp);
-            /*String tmpString = deftran.html();
-            StringBuffer stringBuffer = new StringBuffer(example.html());
-            System.out.println(tmpString);
-            System.out.println(stringBuffer);
-            int iFlag = -1;
-            do {
-                iFlag = stringBuffer.indexOf(tmpString);
-                if (iFlag != -1) {
-                    stringBuffer.deleteCharAt(iFlag);
-                }
-                res.add(new String(stringBuffer));
-            } while (iFlag != -1);*/
-//                Element element = new Element(stringBuffer);
 
         }
         return res;

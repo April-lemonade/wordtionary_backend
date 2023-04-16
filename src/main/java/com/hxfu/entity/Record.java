@@ -17,4 +17,5 @@ public class Record {
     private int familiar;
     private int familiarCount;
     private Date nextDate;
+    private int listId;
 }

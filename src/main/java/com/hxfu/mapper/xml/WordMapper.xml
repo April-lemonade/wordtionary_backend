@@ -8,8 +8,14 @@
     <select id="getWords" resultMap="BaseResultMap">
         select *
         from word
-        where listId = #{bookId} limit #{wordId}
-            , 10
+        where listId = #{bookId}
+          and id &gt; #{wordId}
+        limit #{dailyCount}
+    </select>
+    <select id="getReviewWords" resultType="com.hxfu.entity.Word">
+        select *
+        from word
+        where id = #{wordId}
     </select>
     <select id="showWords" resultMap="SimpleMap">
         select id,word

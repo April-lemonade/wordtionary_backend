@@ -15,7 +15,7 @@
         select id from wordList where name=#{name}
     </select>
     <update id="change">
-        update user set bookId=#{bookId}, wordId=0 where id = #{openid}
+        update user set bookId=#{bookId} where id = #{openid}
     </update>
     <select id="getName" resultType="string" >
         select name from wordList where id = #{bookId}

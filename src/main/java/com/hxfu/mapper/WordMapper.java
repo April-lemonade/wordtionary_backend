@@ -5,7 +5,9 @@ import com.hxfu.entity.Word;
 import java.util.List;
 
 public interface WordMapper {
-    List<Word> getWords(int bookId, int wordId);
+    List<Word> getWords(int bookId, int wordId, int dailyCount);
+
+    Word getReviewWords(int wordId);
 
     int addOxfordTranslation(String translation, int wordId);
 

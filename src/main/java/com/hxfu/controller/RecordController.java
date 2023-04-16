@@ -18,8 +18,8 @@ public class RecordController {
     RecordService recordService;
 
     @GetMapping("/addrecord")
-    public int addRecord(@RequestParam("openid") String openid, @RequestParam("wordId") String wordId, @RequestParam("familiar") String familiar) throws ParseException {
-        return recordService.addRecord(openid, Integer.parseInt(wordId), Integer.parseInt(familiar));
+    public int addRecord(@RequestParam("openid") String openid, @RequestParam("wordId") String wordId, @RequestParam("listId") String listId, @RequestParam("familiar") String familiar) throws ParseException {
+        return recordService.addRecord(openid, Integer.parseInt(wordId), Integer.parseInt(listId), Integer.parseInt(familiar));
     }
 
     @GetMapping("/getstatisics")

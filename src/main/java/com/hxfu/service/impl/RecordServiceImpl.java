@@ -24,7 +24,7 @@ public class RecordServiceImpl implements RecordService {
     UserMapper userMapper;
 
     @Override
-    public int addRecord(String openid, int wordId, int familiar) throws ParseException {
+    public int addRecord(String openid, int wordId, int listId, int familiar) throws ParseException {
         Date date = new Date();
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String time = format.format(date);
@@ -41,12 +41,14 @@ public class RecordServiceImpl implements RecordService {
             }
             if (familiar == 1)
                 calendar.add(Calendar.DATE, 1);
+            if (familiar == -1)
+                newFamiliar = -1;
             newDate = calendar.getTime();
-            recordMapper.addRecord(openid, wordId, format.parse(time), familiar, newFamiliar, newDate);
-        } else {
+            recordMapper.addRecord(openid, wordId, listId, format.parse(time), familiar, newFamiliar, newDate);
+        } else { //不是第一次背
             Record currentRecord = records.get(0);
-            if (familiar == 2) {
-                newFamiliar = currentRecord.getFamiliarCount() + 1;
+            newFamiliar = currentRecord.getFamiliarCount() + 1;
+            if (familiar == 2 && newFamiliar != 0) {
                 Date currentDate = currentRecord.getNextDate();
                 Calendar calendar = new GregorianCalendar();
                 calendar.setTime(currentDate);
@@ -54,7 +56,7 @@ public class RecordServiceImpl implements RecordService {
                 calendar.add(Calendar.DATE, Integer.parseInt(trace[newFamiliar - 1]));
                 // 这个时间就是日期往后推一天的结果
                 newDate = calendar.getTime();
-                recordMapper.addRecord(openid, wordId, format.parse(time), familiar, newFamiliar, newDate);
+                recordMapper.addRecord(openid, wordId, listId, format.parse(time), familiar, newFamiliar, newDate);
             }
             if (familiar == 1) {
                 Date currentDate = currentRecord.getNextDate();
@@ -64,11 +66,12 @@ public class RecordServiceImpl implements RecordService {
                 calendar.add(Calendar.DATE, 1);
                 // 这个时间就是日期往后推一天的结果
                 newDate = calendar.getTime();
-                recordMapper.addRecord(openid, wordId, format.parse(time), familiar, newFamiliar, newDate);
+                recordMapper.addRecord(openid, wordId, listId, format.parse(time), familiar, newFamiliar, newDate);
+            }
+            if (familiar == -1) {
+                recordMapper.addRecord(openid, wordId, listId, format.parse(time), -1, 0, date);
             }
         }
-        //添加背单词记录
-        //recordMapper.addRecord(openid, wordId, format.parse(time), familiar, newFamiliar, newDate);
         //修改用户背单词记录
         int currentId = userMapper.getWordId(openid);
         if (wordId > currentId) //如果是用户没背过的单词，就更新单词背诵进度

@@ -1,7 +1,9 @@
 package com.hxfu.service.impl;
 
+import com.hxfu.entity.Record;
 import com.hxfu.entity.Word;
 import com.hxfu.entity.WordList;
+import com.hxfu.mapper.RecordMapper;
 import com.hxfu.mapper.UserMapper;
 import com.hxfu.mapper.WordListMapper;
 import com.hxfu.mapper.WordMapper;
@@ -29,6 +31,8 @@ public class WordListServiceImpl implements WordListService {
     private WordMapper wordMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RecordMapper recordMapper;
 
     public List<WordList> getadminAll() {
         return wordListMapper.getadminAll();
@@ -36,6 +40,15 @@ public class WordListServiceImpl implements WordListService {
 
     @Override
     public int change(String bookId, String openid) {
+        List<Record> records = recordMapper.getLastWord(openid, Integer.parseInt(bookId));
+        if (records.size() != 0) {
+            Record lastRecord = records.get(records.size() - 1);
+            int lastWord = Integer.parseInt(lastRecord.getWordId());
+            userMapper.updatewordid(openid, lastWord);
+        } else {
+            userMapper.updatewordid(openid, 0);
+        }
+
         return wordListMapper.change(bookId, openid);
     }
 
