@@ -24,4 +24,6 @@ public interface UserMapper {
     int changeFamiliar(String openid, String familiar);
 
     int getDailyCount(String openid);
+
+    int changeDailyCount(String openid, int dailyCount);
 }

@@ -75,4 +75,9 @@ public class UserServiceImpl implements UserService {
     public int changeFamiliar(String openid, String familiar) {
         return userMapper.changeFamiliar(openid, familiar);
     }
+
+    @Override
+    public int changeDailyCount(String openid, int dailyCount) {
+        return userMapper.changeDailyCount(openid, dailyCount);
+    }
 }

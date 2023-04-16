@@ -48,6 +48,11 @@
         set familiar=#{familiar}
         where id = #{openid}
     </update>
+    <update id="changeDailyCount">
+        update user
+        set dailyCount=#{dailyCount}
+        where id = #{openid}
+    </update>
     <select id="getWordId" resultType="int">
         SELECT wordId
         FROM user

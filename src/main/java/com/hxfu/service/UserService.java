@@ -18,4 +18,6 @@ public interface UserService {
     int getWordId(String openid);
 
     int changeFamiliar(String openid, String familiar);
+
+    int changeDailyCount(String openid, int dailyCount);
 }

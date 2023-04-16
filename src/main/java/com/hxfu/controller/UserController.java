@@ -48,4 +48,9 @@ public class UserController {
     public int changeFamiliar(String openid, String familiar) {
         return userService.changeFamiliar(openid, familiar);
     }
+
+    @GetMapping("/changedailycount")
+    public int changeDailyCount(String openid, String dailyCount) {
+        return userService.changeDailyCount(openid, Integer.parseInt(dailyCount));
+    }
 }
