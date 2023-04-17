@@ -121,6 +121,19 @@ public class WordServiceImpl implements WordService {
         return relearnWords;
     }
 
+    @Override
+    public Word searchWord(String word, String dictionaryId) throws IOException {
+        Word search = wordMapper.searchWord(word).get(0);
+        if (search.getOxfordTranslations() == null && Integer.parseInt(dictionaryId) == 0) {
+            wordMapper.addOxfordTranslation(Oxford(search).toString(), search.getId());
+        }
+        if (search.getCambridgeTranslations() == null && Integer.parseInt(dictionaryId) == 1) {
+            System.out.println(Cambridge(search));
+            wordMapper.addCambridgeTranslation(Cambridge(search), search.getId());
+        }
+        return wordMapper.searchWord(word).get(0);
+    }
+
     public JSONObject Oxford(Word word) {
         String Base_URL = "https://od-api.oxforddictionaries.com/api/v2";
         String Application_ID = "55a7fbae";

@@ -34,4 +34,9 @@ public class WordController {
 //        System.out.println("sss");
         return wordService.getRelearn(openid);
     }
+
+    @GetMapping("/searchword")
+    public Word searchWord(String word, String dictionaryId) throws IOException {
+        return wordService.searchWord(word, dictionaryId);
+    }
 }

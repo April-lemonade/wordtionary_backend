@@ -3,7 +3,7 @@
 <mapper namespace="com.hxfu.mapper.RecordMapper">
     <insert id="addRecord">
         insert into record (openid, wordId, listId, date, familiar, familiarCount, nextDate)
-        values (#{openid}, #{wordId}, #{date}, #{listId}, #{familiar}, #{familiarCount}, #{nextDate})
+        values (#{openid}, #{wordId}, #{listId},#{date},  #{familiar}, #{familiarCount}, #{nextDate})
     </insert>
     <select id="getAll" resultType="com.hxfu.entity.Statistics">
         SELECT date, COUNT(DISTINCT wordId) AS count

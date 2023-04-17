@@ -20,4 +20,6 @@ public interface WordMapper {
     int deleteWord(String bookId);
 
     int getCounts(String bookId);
+
+    List<Word> searchWord(String word);
 }

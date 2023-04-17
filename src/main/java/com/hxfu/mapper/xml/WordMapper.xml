@@ -27,6 +27,10 @@
         SELECT COUNT(*) FROM word
         where listId = #{bookId}
     </select>
+    <select id="searchWord" resultMap="BaseResultMap">
+        SELECT * FROM word
+        where word = #{word}
+    </select>
     <update id="addOxfordTranslation">
         update word
         set oxfordTranslations=#{translation}

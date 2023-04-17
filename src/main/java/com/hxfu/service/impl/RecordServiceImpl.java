@@ -58,6 +58,18 @@ public class RecordServiceImpl implements RecordService {
                 newDate = calendar.getTime();
                 recordMapper.addRecord(openid, wordId, listId, format.parse(time), familiar, newFamiliar, newDate);
             }
+            if (familiar == 2 && newFamiliar == 0) { //第一次熟悉
+
+                Date currentDate = currentRecord.getNextDate();
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(new Date());
+                System.out.println("是第一次熟悉熟悉熟悉");
+                // 把日期往后增加一天,整数  往后推,负数往前移动
+                calendar.add(Calendar.DATE, Integer.parseInt(trace[0]));
+                // 这个时间就是日期往后推一天的结果
+                newDate = calendar.getTime();
+                recordMapper.addRecord(openid, wordId, listId, format.parse(time), familiar, 1, newDate);
+            }
             if (familiar == 1) {
                 Date currentDate = currentRecord.getNextDate();
                 Calendar calendar = new GregorianCalendar();
