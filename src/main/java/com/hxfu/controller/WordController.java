@@ -39,4 +39,9 @@ public class WordController {
     public Word searchWord(String word, String dictionaryId) throws IOException {
         return wordService.searchWord(word, dictionaryId);
     }
+
+    @GetMapping("/addword")
+    public int addWord(String word, String listid)  {
+        return wordService.addWord(word,Integer.parseInt(listid));
+    }
 }

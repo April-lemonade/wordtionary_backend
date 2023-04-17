@@ -134,6 +134,14 @@ public class WordServiceImpl implements WordService {
         return wordMapper.searchWord(word).get(0);
     }
 
+    @Override
+    public int addWord(String name, int listId) {
+        Word word = new Word();
+        word.setWord(name);
+        word.setListid(listId);
+        return wordMapper.addWord(word);
+    }
+
     public JSONObject Oxford(Word word) {
         String Base_URL = "https://od-api.oxforddictionaries.com/api/v2";
         String Application_ID = "55a7fbae";

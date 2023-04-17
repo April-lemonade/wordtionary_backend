@@ -13,4 +13,6 @@ public interface WordService {
     List<Word> getRelearn(String openid);
 
     Word searchWord(String word,String dictionaryId) throws IOException;
+
+    int addWord(String name, int listId);
 }
