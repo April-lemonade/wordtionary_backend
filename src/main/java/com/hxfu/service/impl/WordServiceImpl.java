@@ -23,10 +23,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class WordServiceImpl implements WordService {
@@ -140,6 +137,22 @@ public class WordServiceImpl implements WordService {
         word.setWord(name);
         word.setListid(listId);
         return wordMapper.addWord(word);
+    }
+
+    @Override
+    public int[] getPredict(String openid) {
+        int[] predict = new int[7];
+        Date date = new Date();
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        for (int i = 0; i < 7; i++) {
+            calendar.add(Calendar.DATE, i);
+            Date newDate = calendar.getTime();
+            List<Integer> reviewIds = recordMapper.getReview(openid, format.format(newDate));
+            predict[i] = reviewIds.size();
+        }
+        return predict;
     }
 
     public JSONObject Oxford(Word word) {

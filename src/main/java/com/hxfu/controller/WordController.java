@@ -41,7 +41,12 @@ public class WordController {
     }
 
     @GetMapping("/addword")
-    public int addWord(String word, String listid)  {
-        return wordService.addWord(word,Integer.parseInt(listid));
+    public int addWord(String word, String listid) {
+        return wordService.addWord(word, Integer.parseInt(listid));
+    }
+
+    @GetMapping("predict")
+    public int[] getPredict(String openid) {
+        return wordService.getPredict(openid);
     }
 }
