@@ -12,6 +12,12 @@
           and id &gt; #{wordId}
         limit #{dailyCount}
     </select>
+    <select id="getOneWords" resultMap="BaseResultMap">
+        select *
+        from word
+        where listId = #{bookId}
+          and id = #{wordId} + 1
+    </select>
     <select id="getReviewWords" resultType="com.hxfu.entity.Word">
         select *
         from word

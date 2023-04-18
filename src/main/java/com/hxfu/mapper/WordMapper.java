@@ -7,6 +7,8 @@ import java.util.List;
 public interface WordMapper {
     List<Word> getWords(int bookId, int wordId, int dailyCount);
 
+    List<Word> getOneWords(int bookId, int wordId);
+
     Word getReviewWords(int wordId);
 
     int addOxfordTranslation(String translation, int wordId);

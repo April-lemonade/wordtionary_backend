@@ -20,8 +20,12 @@ public class WordController {
 
     @GetMapping("/getwords")
     public List<Word> listusers(String bookId, String wordId, String dictionaryId, String openid) throws IOException {
-        System.out.println("sss");
         return wordService.getWords(bookId, wordId, dictionaryId, openid);
+    }
+
+    @GetMapping("/getoneword")
+    public List<Word> getOneWord(String bookId, String wordId, String dictionaryId,int dailyCount) throws IOException {
+        return wordService.getOneWords(Integer.parseInt(bookId), Integer.parseInt(wordId), dictionaryId,dailyCount);
     }
 
     @GetMapping("/showwords")

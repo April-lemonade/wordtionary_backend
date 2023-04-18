@@ -66,29 +66,31 @@ public class WordServiceImpl implements WordService {
         System.out.println("|||||||||||||" + learnedCount);
         if (learnedCount < dailyCount) {
             List<Word> words = wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId), dailyCount - learnedCount);
-            for (Word word : words) {
-                if (word.getOxfordTranslations() == null && Integer.parseInt(dictionaryId) == 0) {
-                    wordMapper.addOxfordTranslation(Oxford(word).toString(), word.getId());
-                }
-                if (word.getCambridgeTranslations() == null && Integer.parseInt(dictionaryId) == 1) {
-                    System.out.println(Cambridge(word));
-                    wordMapper.addCambridgeTranslation(Cambridge(word), word.getId());
-                }
-            }
+            getMeanning(dictionaryId, words);
             List<Word> newWords = wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId), dailyCount - learnedCount);
             allWords.addAll(newWords);
         }
-        //取重学的单词
-       /* List<Integer> relearnIds = recordMapper.getRelearn(time, openid);
-        List<Word> relearnWords = new ArrayList<>();
-        for (int i : relearnIds) {
-            Word relearnWord = wordMapper.getReviewWords(i);
-            reviewWords.add(relearnWord);
-            allWords.add(relearnWord);
-        }*/
-//        allWords.add(reviewWords);
-//        return wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId));
         return allWords;
+    }
+
+    @Override
+    public List<Word> getOneWords(int bookId, int wordId, String dictionaryId, int dailyCount) throws IOException {
+
+        List<Word> words = wordMapper.getWords(bookId, wordId, dailyCount);
+        getMeanning(dictionaryId, words);
+        return wordMapper.getWords(bookId, wordId, dailyCount);
+    }
+
+    public void getMeanning(String dictionaryId, List<Word> words) throws IOException {
+        for (Word word : words) {
+            if (word.getOxfordTranslations() == null && Integer.parseInt(dictionaryId) == 0) {
+                wordMapper.addOxfordTranslation(Oxford(word).toString(), word.getId());
+            }
+            if (word.getCambridgeTranslations() == null && Integer.parseInt(dictionaryId) == 1) {
+                System.out.println(Cambridge(word));
+                wordMapper.addCambridgeTranslation(Cambridge(word), word.getId());
+            }
+        }
     }
 
     @Override

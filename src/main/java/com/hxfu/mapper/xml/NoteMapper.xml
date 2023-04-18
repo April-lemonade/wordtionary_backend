@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxfu.mapper.NoteMapper">
+    <insert id="addNote">
+        insert into note (openid, wordId, content)
+        values (#{openid}, #{wordId}, #{content})
+    </insert>
+    <select id="getNote" resultMap="BaseResultMap">
+        select *
+        from note
+        where openid = #{openid}
+          and wordId = #{wordId}
+    </select>
+    <update id="updateNote">
+        update note
+        set content=#{content}
+        where openid = #{openid}
+          and wordId = #{wordId}
+    </update>
+    <resultMap id="BaseResultMap" type="com.hxfu.entity.Note">
+        <result column="id" property="id"/>
+        <result column="openid" property="openid"/>
+        <result column="wordId" property="wordId"/>
+        <result column="content" property="content"/>
+    </resultMap>
+</mapper>
