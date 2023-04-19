@@ -11,6 +11,12 @@
         WHERE openid=#{openid}
         GROUP BY date
     </select>
+    <select id="getLearnedCount" resultType="int">
+        SELECT COUNT(DISTINCT wordId)
+        FROM record
+        WHERE openid=#{openid}
+          and listId=#{listId}
+    </select>
     <select id="getReview" resultType="int">
         SELECT wordId
         FROM record
@@ -23,6 +29,14 @@
         WHERE nextDate = #{date}
           and familiarCount = -1
           and openid = #{openid}
+    </select>
+    <select id="getAllRelearn" resultType="int">
+        SELECT COUNT(DISTINCT wordId)
+        FROM record
+        WHERE listId = #{listId}
+        and familiarCount &lt; #{allFamiliarCount}
+        AND date &gt;= CURDATE()
+        AND openid = #{openid}
     </select>
     <!--<update id="editActivity" parameterType="com.hxfu.entity.Activity">
         update activities set content=#{content}, color = #{color} where id = #{id}

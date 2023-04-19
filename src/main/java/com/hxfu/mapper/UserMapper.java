@@ -26,4 +26,6 @@ public interface UserMapper {
     int getDailyCount(String openid);
 
     int changeDailyCount(String openid, int dailyCount);
+
+    int getListId(String openid);
 }

@@ -70,6 +70,7 @@ public class WordServiceImpl implements WordService {
             List<Word> newWords = wordMapper.getWords(Integer.parseInt(bookId), Integer.parseInt(wordId), dailyCount - learnedCount);
             allWords.addAll(newWords);
         }
+
         return allWords;
     }
 
@@ -116,6 +117,16 @@ public class WordServiceImpl implements WordService {
                 relearnWords.add(relearnWord);
                 System.out.println("要重新学的单词！" + relearnWord.toString());
             }
+        }
+        int currentId = userMapper.getWordId(openid);
+        int listid = userMapper.getListId(openid);
+        int allLastId = wordMapper.getLastId(listid);
+        int allFamiliarCount = userMapper.getFamiliar(openid).split(",").length;
+        int allRelearn = recordMapper.getAllRelearn(openid,listid,allFamiliarCount);
+        if (currentId == allLastId && allRelearn == 0) {
+            Word flag = new Word();
+            flag.setId(-1);
+            relearnWords.add(flag);
         }
         return relearnWords;
     }

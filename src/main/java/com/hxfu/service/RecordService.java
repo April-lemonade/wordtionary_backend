@@ -11,4 +11,6 @@ public interface RecordService {
 
     List<Statistics> getAll(String openid);
 
+//    int getLearnedCount(String openid, int listId);
+
 }

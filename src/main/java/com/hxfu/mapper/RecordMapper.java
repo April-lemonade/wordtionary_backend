@@ -23,4 +23,8 @@ public interface RecordMapper {
     List<Record> getTodayRecord(String openid, String date);
 
     List<Record> getLastWord(String openid, int listId);
+
+    int getLearnedCount(String openid, int listId);
+
+    int getAllRelearn(String openid, int listId, int allFamiliarCount);
 }

@@ -43,6 +43,11 @@
         from user
         where id = #{openid}
     </select>
+    <select id="getListId" resultType="int">
+        select bookId
+        from user
+        where id = #{openid}
+    </select>
     <update id="changeFamiliar">
         update user
         set familiar=#{familiar}

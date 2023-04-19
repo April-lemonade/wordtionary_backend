@@ -175,7 +175,7 @@ public class WordListServiceImpl implements WordListService {
         Map<String, String> map = new HashMap<>();
         int all = wordMapper.getCounts(bookId);
         int dailyCount = userMapper.getDailyCount(openid);
-        int current = userMapper.getWordId(openid);
+        int current = recordMapper.getLearnedCount(openid, Integer.parseInt(bookId));
         int leftCount = all - current;
         int leftDays = (int) Math.ceil((double) leftCount / dailyCount);
         float progress = (float) current / all;

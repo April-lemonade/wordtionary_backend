@@ -24,4 +24,6 @@ public interface WordMapper {
     int getCounts(String bookId);
 
     List<Word> searchWord(String word);
+
+    int getLastId(int listId);
 }

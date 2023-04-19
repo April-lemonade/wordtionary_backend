@@ -30,12 +30,21 @@
             , 50
     </select>
     <select id="getCounts" resultType="java.lang.Integer">
-        SELECT COUNT(*) FROM word
+        SELECT COUNT(*)
+        FROM word
         where listId = #{bookId}
     </select>
     <select id="searchWord" resultMap="BaseResultMap">
-        SELECT * FROM word
+        SELECT *
+        FROM word
         where word = #{word}
+    </select>
+    <select id="getLastId" resultType="int">
+        SELECT id
+        FROM word
+        WHERE listid=#{listId}
+        order by id desc
+        LIMIT 1
     </select>
     <update id="addOxfordTranslation">
         update word
