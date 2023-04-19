@@ -53,4 +53,6 @@ public class UserController {
     public int changeDailyCount(String openid, String dailyCount) {
         return userService.changeDailyCount(openid, Integer.parseInt(dailyCount));
     }
+
+
 }

@@ -48,7 +48,7 @@ public class RecordServiceImpl implements RecordService {
         } else { //不是第一次背
             Record currentRecord = records.get(0);
             newFamiliar = currentRecord.getFamiliarCount() + 1;
-            if (familiar == 2 && newFamiliar != 0) {
+            if (familiar == 2 && newFamiliar != 0 && newFamiliar < trace.length) {
                 Date currentDate = currentRecord.getNextDate();
                 Calendar calendar = new GregorianCalendar();
                 calendar.setTime(currentDate);

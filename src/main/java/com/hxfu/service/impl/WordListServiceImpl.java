@@ -185,7 +185,7 @@ public class WordListServiceImpl implements WordListService {
         Calendar calendar = new GregorianCalendar();
         calendar.setTime(new Date());
         // 把日期往后增加一天,整数  往后推,负数往前移动
-        calendar.add(Calendar.DATE, leftDays);
+        calendar.add(Calendar.DATE, leftDays - 1);
         // 这个时间就是日期往后推一天的结果
         Date finishDate = calendar.getTime();
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
