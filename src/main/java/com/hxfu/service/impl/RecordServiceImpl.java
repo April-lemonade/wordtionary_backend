@@ -86,7 +86,8 @@ public class RecordServiceImpl implements RecordService {
         }
         //修改用户背单词记录
         int currentId = userMapper.getWordId(openid);
-        if (wordId > currentId) //如果是用户没背过的单词，就更新单词背诵进度
+        int currentList = userMapper.getListId(openid);
+        if (wordId > currentId && listId == currentList) //如果是用户没背过的单词，就更新单词背诵进度
             userMapper.updatewordid(openid, wordId);
         return 0;
     }
