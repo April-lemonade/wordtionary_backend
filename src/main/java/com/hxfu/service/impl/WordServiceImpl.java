@@ -194,6 +194,7 @@ public class WordServiceImpl implements WordService {
 
         JSONObject results = (JSONObject) body.getJSONArray("results").get(0);
         results = results.getJSONArray("lexicalEntries").getJSONObject(0).getJSONArray("entries").getJSONObject(0);
+        System.out.println(word.getWord());
         return results;
     }
 

@@ -1,9 +1,9 @@
 spring:
   datasource:
-#    url: jdbc:mysql://121.40.140.72:3306/fangwei?useUnicode=true&characterEncoding=utf8
-#    username: fangwei
-#    password: PfHibTfSGK2zaaBA
-    url: jdbc:mysql://121.40.140.72:3306/wordtionary?useUnicode=true&characterEncoding=utf8
+    #    url: jdbc:mysql://121.40.140.72:3306/fangwei?useUnicode=true&characterEncoding=utf8
+    #    username: fangwei
+    #    password: PfHibTfSGK2zaaBA
+    url: jdbc:mysql://121.40.140.72:3306/wordtionary?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8
     username: wordtionary
     password: SBR2TmBNKwJnrYSP
     driver-class-name: com.mysql.cj.jdbc.Driver
